@@ -1,5 +1,7 @@
 <template>
-  <div>Sign up page</div>
+  <div>
+    <h1>Sign up page</h1>
+  </div>
   <signup-form></signup-form>
 </template>
 

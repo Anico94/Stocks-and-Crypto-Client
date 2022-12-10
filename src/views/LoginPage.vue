@@ -1,16 +1,32 @@
 <template>
   <div>
     <h1>Login Page</h1>
-    <login-form></login-form>
+    <form action="#" @submit.prevent="onSubmit">
+      <label>
+        Email:
+        <input type="email" placeholder="Email" />
+      </label>
+      <label>
+        Password:
+        <input type="password" placeholder="Password" />
+      </label>
+      <button type="submit">Login</button>
+    </form>
+    <!-- <login-form @recieveDetails="showUser"></login-form> -->
   </div>
 </template>
 
 <script>
-import LoginForm from "../components/LoginForm.vue";
+// import LoginForm from "../components/LoginForm.vue";
 
 export default {
-  components: { LoginForm },
+  // components: { LoginForm },
   name: "login-page",
+  methods: {
+    // showUser(details) {
+    //   console.log(details);
+    // },
+  },
 };
 </script>
 

@@ -1,22 +1,42 @@
 <template>
   <div>
-    <form action="">
+    <form action="#" @submit.prevent="onSubmit">
       <label>
         Email:
-        <input type="email" placeholder="Email" />
+        <input v-model="info.email" type="email" placeholder="Email" />
       </label>
       <label>
         Password:
-        <input type="email" placeholder="Email" />
+        <input v-model="info.password" type="password" placeholder="Password" />
       </label>
       <button type="submit">Login</button>
     </form>
+
+    <p>{{ info.email }}</p>
+    <p>{{ info.password }}</p>
   </div>
 </template>
 
 <script>
 export default {
   name: "login-form",
+  props: {
+    info: {
+      type: Object,
+      required: false,
+      default() {
+        return {
+          email: "",
+          password: "",
+        };
+      },
+    },
+  },
+  methods: {
+    onSubmit() {
+      this.$emit("recieveDetails", this.info);
+    },
+  },
 };
 </script>
 
