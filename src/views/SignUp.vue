@@ -48,6 +48,8 @@
 </template>
 
 <script>
+import { api } from "../helper/helpers";
+
 export default {
   name: "sign-up",
   data() {
@@ -60,7 +62,14 @@ export default {
     };
   },
   methods: {
-    signup() {
+    // async createUser(newUser) {
+    //   await api.createUser(newUser);
+    // this.flash("Word Created Successfully");
+    //may want to change this route on sing in
+    // this.$router.push(`/`);
+    // this.$router.push(`/users/${res._id}`);
+    // },
+    async signup() {
       // TODO create validation for the names and password confirmation
 
       let newUser = {
@@ -69,6 +78,10 @@ export default {
         email: this.email,
         password: this.password,
       };
+
+      const res = await api.createUser(newUser);
+      console.log(res);
+      this.$router.push(`/`);
 
       this.firstName = "";
       this.lastName = "";
