@@ -1,7 +1,8 @@
 <template>
-  <div>This is the home page</div>
-  <div class="left">This will have an image of stock/crypto</div>
-  <div class="right">This will have some sort of welcome messaege</div>
+  <div class="container">
+    <div class="left">This will have an image of stock/crypto</div>
+    <div class="right">This will have some sort of welcome messaege</div>
+  </div>
   <footer>Small bottom banner</footer>
 </template>
 
@@ -11,4 +12,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.container {
+  display: flex;
+  justify-content: space-evenly;
+}
+</style>
