@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Login Page</h1>
-    <form action="#" @submit.prevent="onSubmit">
+    <form action="#" @submit.prevent="login">
       <label>
         Email:
         <input type="email" placeholder="Email" v-model="email" />
@@ -11,22 +11,42 @@
         <input type="password" placeholder="Password" v-model="password" />
       </label>
       <button type="submit">Login</button>
+      <p class="error-message">{{ error }}</p>
     </form>
+
+    <p>
+      Don't have an account? <router-link to="/signup">Sign Up!</router-link>
+    </p>
   </div>
 </template>
 
 <script>
+import { api } from "../helper/helpers";
+
 export default {
   name: "login-page",
   data() {
     return {
       email: "",
       password: "",
+      error: "",
     };
   },
   methods: {
-    onSubmit() {
-      console.log(this.email, this.password);
+    async login() {
+      let user = {
+        email: this.email,
+        password: this.password,
+      };
+      const res = await api.checkForUser(user);
+
+      if (res.error !== undefined) {
+        this.error = res.error;
+      } else {
+        localStorage.setItem("token", res.token);
+        this.error = "";
+        this.$router.push(`/landing`);
+      }
       this.email = "";
       this.password = "";
     },
@@ -48,5 +68,9 @@ label {
 button {
   margin: 0 auto;
   width: 200px;
+}
+
+.error-message {
+  color: red;
 }
 </style>

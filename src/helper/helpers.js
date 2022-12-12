@@ -15,6 +15,7 @@ import axios from "axios";
 
 // when I deploy this will have to change to the deployed address ?
 const baseURL = "http://localhost:1337/users/";
+const loginURL = "http://localhost:1337/login/";
 
 const handleError =
   (fn) =>
@@ -28,8 +29,14 @@ const handleError =
     });
 
 export const api = {
-  getUser: handleError(async (id) => {
-    const res = await axios.get(baseURL + id);
+  checkForUser: handleError(async (payload) => {
+    const res = await axios.post(loginURL, payload);
+    return res.data;
+  }),
+  getUser: handleError(async () => {
+    const res = await axios.get(baseURL, {
+      headers: { token: localStorage.getItem("token") },
+    });
     return res.data;
   }),
   getUsers: handleError(async () => {

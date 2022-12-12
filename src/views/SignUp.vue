@@ -44,6 +44,8 @@
       </label>
       <button type="submit">Sign Up!</button>
     </form>
+
+    <p>Already a user? <router-link to="/login">Login</router-link></p>
   </div>
 </template>
 
@@ -82,6 +84,7 @@ export default {
       const res = await api.createUser(newUser);
       console.log(res);
       this.$router.push(`/`);
+      console.log(this.password);
 
       this.firstName = "";
       this.lastName = "";

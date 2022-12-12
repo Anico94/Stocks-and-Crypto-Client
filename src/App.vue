@@ -1,6 +1,10 @@
 <template>
   <div id="app">
     <nav>
+      <!-- if statement to send to home or landing page depending on if a user is logged in or not-->
+      <router-link to="/"
+        ><img src="./assets/logo.png" class="logo"
+      /></router-link>
       <router-link to="/">Home</router-link> |
       <router-link to="/login">Login</router-link> |
       <router-link to="/signup">Sign Up</router-link>
@@ -26,7 +30,8 @@ export default {
 
 nav {
   padding: 30px;
-  background-color: lightblue;
+  background-color: black;
+  color: white;
 }
 
 nav a {
@@ -36,5 +41,10 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.logo {
+  width: 30px;
+  padding-right: 100px;
 }
 </style>
