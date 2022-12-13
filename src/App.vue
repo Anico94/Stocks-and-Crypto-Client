@@ -2,7 +2,7 @@
   <div id="app">
     <nav>
       <!-- if statement to send to home or landing page depending on if a user is logged in or not-->
-      <router-link to="/"
+      <router-link to="/landing"
         ><img src="./assets/logo.png" class="logo"
       /></router-link>
       <router-link to="/">Home</router-link> |
@@ -31,7 +31,7 @@ export default {
 
 nav {
   padding: 30px;
-  background-color: black;
+  background-color: lightblue;
   color: white;
 }
 

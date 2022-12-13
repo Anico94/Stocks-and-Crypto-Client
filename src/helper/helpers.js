@@ -55,4 +55,13 @@ export const api = {
     const res = await axios.put(baseURL + payload._id, payload);
     return res.data;
   }),
+
+  addHolding: handleError(async (payload, existingWatchlist) => {
+    const res = await axios.put(baseURL, {
+      headers: { token: localStorage.getItem("token") },
+      stock: payload,
+      currentWatchlists: existingWatchlist,
+    });
+    return res.data;
+  }),
 };
