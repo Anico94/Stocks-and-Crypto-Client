@@ -6,8 +6,9 @@
         ><img src="./assets/logo.png" class="logo"
       /></router-link>
       <router-link to="/">Home</router-link> |
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/signup">Sign Up</router-link>
+      <button><router-link to="/login">Login</router-link></button>
+      |
+      <button><router-link to="/signup">Sign Up</router-link></button>
     </nav>
     <router-view />
   </div>

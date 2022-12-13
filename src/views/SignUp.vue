@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <h1>Sign up page</h1>
     <form action="#" @submit.prevent="signup">
       <label>

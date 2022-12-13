@@ -4,6 +4,7 @@ import LoginPage from "../views/LoginPage.vue";
 import SignUp from "../views/SignUp.vue";
 import HomePage from "../views/HomePage.vue";
 import LandingPage from "../views/LandingPage.vue";
+import SingleStock from "../views/SingleStock";
 
 const routes = [
   {
@@ -25,6 +26,11 @@ const routes = [
     path: "/landing",
     name: "landing",
     component: LandingPage,
+  },
+  {
+    path: "/singlestock/:stockCode",
+    name: "singletock",
+    component: SingleStock,
   },
 ];
 
