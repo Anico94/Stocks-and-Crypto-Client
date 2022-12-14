@@ -1,52 +1,52 @@
 <template>
   <div class="container">
-    <h1>Sign up page</h1>
-    <form action="#" @submit.prevent="signup">
-      <label>
-        First Name:
+    <div class="signup-width">
+      <h1 class="text-center">Sign Up!</h1>
+      <form action="#" @submit.prevent="signup">
         <input
+          class="form-control w-100 mb-2"
           type="text"
           placeholder="First Name"
           v-model="firstName"
           required
         />
-      </label>
-      <label>
-        Last Name:
+
         <input
+          class="form-control w-100 mb-2"
           type="text"
           placeholder="Last Name"
           v-model="lastName"
           required
         />
-      </label>
-      <label>
-        Email:
-        <input type="email" placeholder="Email" v-model="email" required />
-      </label>
-      <label>
-        Password:
+
         <input
+          class="form-control w-100 mb-2"
+          type="email"
+          placeholder="Email"
+          v-model="email"
+          required
+        />
+        <input
+          class="form-control w-100 mb-2"
           type="password"
           placeholder="Password"
           v-model="password"
           required
         />
-      </label>
-      <label>
-        Confirm Password:
         <input
+          class="form-control w-100 mb-2"
           type="password"
           placeholder="Confirm Password"
           v-model="passwordconf"
           required
         />
-      </label>
-      <p>{{ message }}</p>
-      <button type="submit">Sign Up!</button>
-    </form>
 
-    <p>Already a user? <router-link to="/login">Login</router-link></p>
+        <button class="btn btn-dark mt-2 w-100" type="submit">Sign Up!</button>
+        <p>{{ message }}</p>
+      </form>
+
+      <p>Already a user? <router-link to="/login">Login</router-link></p>
+    </div>
   </div>
 </template>
 
@@ -128,5 +128,20 @@ label {
 button {
   margin: 0 auto;
   width: 200px;
+}
+.signup-width {
+  margin: 100px auto;
+  max-width: 400px;
+  border: 1px solid black;
+  padding: 20px;
+  border-radius: 20px;
+  -webkit-box-shadow: 0px 5px 33px -1px #000000;
+  box-shadow: 0px 5px 33px -1px #000000;
+}
+p {
+  text-align: center;
+}
+h1 {
+  padding-bottom: 20px;
 }
 </style>

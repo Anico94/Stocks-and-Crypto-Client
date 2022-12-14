@@ -1,22 +1,29 @@
 <template>
-  <div>
-    <h1>Login Page</h1>
-    <form action="#" @submit.prevent="login">
-      <label>
-        Email:
-        <input type="email" placeholder="Email" v-model="email" />
-      </label>
-      <label>
-        Password:
-        <input type="password" placeholder="Password" v-model="password" />
-      </label>
-      <button type="submit">Login</button>
-      <p class="error-message">{{ error }}</p>
-    </form>
+  <div class="container-sm">
+    <div class="login-width">
+      <h1 class="text-center">Login</h1>
+      <form action="#" @submit.prevent="login">
+        <input
+          class="form-control w-100 mb-2"
+          type="email"
+          placeholder="Email"
+          v-model="email"
+        />
 
-    <p>
-      Don't have an account? <router-link to="/signup">Sign Up!</router-link>
-    </p>
+        <input
+          class="form-control w-100 mb-2"
+          type="password"
+          placeholder="Password"
+          v-model="password"
+        />
+
+        <button class="btn btn-dark mt-2 w-100" type="submit">Login</button>
+        <p class="error-message">{{ error }}</p>
+      </form>
+      <p>
+        Don't have an account? <router-link to="/signup">Sign Up!</router-link>
+      </p>
+    </div>
   </div>
 </template>
 
@@ -72,5 +79,21 @@ button {
 
 .error-message {
   color: red;
+}
+.login-width {
+  margin: 100px auto;
+  max-width: 400px;
+  border: 1px solid black;
+  padding: 20px;
+  border-radius: 20px;
+  -webkit-box-shadow: 0px 5px 33px -1px #000000;
+  box-shadow: 0px 5px 33px -1px #000000;
+}
+p {
+  text-align: center;
+}
+
+h1 {
+  padding-bottom: 20px;
 }
 </style>

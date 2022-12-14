@@ -17,6 +17,7 @@ import axios from "axios";
 const baseURL = "http://localhost:1337/users/";
 const loginURL = "http://localhost:1337/login/";
 const watchListURL = "http://localhost:1337/users/watchlist/";
+// const newsURL = "http://localhost:1337/request/";
 
 const handleError =
   (fn) =>
@@ -95,4 +96,9 @@ export const api = {
     });
     return res.data;
   }),
+
+  // requestNews: handleError(async () => {
+  //   const res = await axios.get(newsURL);
+  //   return res.data;
+  // }),
 };

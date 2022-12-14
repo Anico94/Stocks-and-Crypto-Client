@@ -25,7 +25,7 @@ export default {
     };
   },
   async mounted() {
-    //this is requesting news articles form the api successfully
+    // this is requesting news articles form the api successfully
     // const APIKEY = `${process.env.VUE_APP_MARKETAUX}`;
     // const stockCode = "AMZN";
     // const URL = `https://api.marketaux.com/v1/news/all?symbols=${stockCode}&filter_entities=true&language=en&api_token=${APIKEY}`;

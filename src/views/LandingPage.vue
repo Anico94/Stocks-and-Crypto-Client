@@ -1,120 +1,155 @@
 <template>
-  <div :class="updating ? 'blurred' : ''">
-    <p>Hello {{ firstName }} {{ lastName }}</p>
+  <div :class="updating ? 'blurred container' : 'container'">
+    <!-- <p>Hello {{ firstName }} {{ lastName }}</p>
     <p>Email Address: {{ email }}</p>
-    <ul>
-      <li v-for="stock in this.watchlists" :key="stock">
-        <router-link :to="{ path: `/singlestock/${stock}` }">{{
-          stock
-        }}</router-link>
-      </li>
-    </ul>
     <input type="text" placeholder="Stock Code" v-model="stockCode" />
     <button @click="getStockInfo(this.stockCode)">Add to holding</button>
-    <button @click="logout">Logout</button>
+    <button @click="logout">Logout</button> -->
 
     <h2>{{ firstName }} {{ lastName }}'s Holdings</h2>
 
     <div class="holdings">
-      <table>
-        <tr>
-          <th>Stock</th>
-          <th>Units</th>
-          <th>Purchase Price</th>
-          <th>Total Price</th>
-          <!-- <th>Current Price</th> -->
-          <th colspan="2">Add/Remove/Update</th>
-        </tr>
-        <tr>
-          <td>
-            <input
-              v-model="addStock"
-              type="text"
-              placeholder="Search"
-              required
-            />
-          </td>
-          <td>
-            <input
-              v-model="addUnits"
-              type="text"
-              placeholder="Units"
-              required
-            />
-          </td>
-          <td>
-            <input
-              v-model="addPrice"
-              type="text"
-              placeholder="Purchase Price"
-              required
-            />
-          </td>
-          <td>
-            <input
-              v-model="addTotal"
-              type="text"
-              placeholder="Total Price"
-              required
-            />
-          </td>
-          <!-- <td>TO BE ADDED</td> -->
-          <td colspan="2">
-            <button @click="addToHoldings">Add Holding</button>
-          </td>
-        </tr>
-
-        <tr v-for="(stock, index) in this.watchlists" :key="index">
-          <td>
-            <router-link :to="{ path: `/singlestock/${stock.ticker}` }">{{
-              stock.ticker
-            }}</router-link>
-          </td>
-          <td>{{ stock.units }}</td>
-          <td>${{ stock.purchasePrice }}</td>
-          <td>${{ stock.totalPrice }}</td>
-          <!-- <td>{{ currentPrice(stock.ticker) }}</td> -->
-          <td><button @click="startUpdate(index)">Update</button></td>
-          <td>
-            <button @click="remove(index)">Remove</button>
-          </td>
-        </tr>
-        <tr v-if="this.watchlists.length === 0">
-          <td colspan="6">Currently no holding fill out above to add</td>
-        </tr>
+      <table class="table text-center align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>Stock</th>
+            <th>Units</th>
+            <th>Purchase Price</th>
+            <th>Total Price</th>
+            <!-- <th>Current Price</th> -->
+            <th colspan="2">Add/Remove/Update</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(stock, index) in this.watchlists" :key="index">
+            <td>
+              <router-link :to="{ path: `/singlestock/${stock.ticker}` }">{{
+                stock.ticker
+              }}</router-link>
+            </td>
+            <td>{{ stock.units }}</td>
+            <td>${{ stock.purchasePrice }}</td>
+            <td>${{ stock.totalPrice }}</td>
+            <!-- <td>{{ currentPrice(stock.ticker) }}</td> -->
+            <td>
+              <button
+                class="btn btn-outline-secondary btn-sm"
+                @click="startUpdate(index)"
+              >
+                Update
+              </button>
+            </td>
+            <td>
+              <button
+                class="btn btn-outline-danger btn-sm"
+                @click="remove(index)"
+              >
+                Remove
+              </button>
+            </td>
+          </tr>
+          <tr v-if="this.watchlists.length === 0">
+            <td colspan="6">Currently no holding fill out above to add</td>
+          </tr>
+          <tr>
+            <td>
+              <input
+                v-model="addStock"
+                type="text"
+                placeholder="Search"
+                required
+              />
+            </td>
+            <td>
+              <input
+                v-model="addUnits"
+                type="text"
+                placeholder="Units"
+                required
+              />
+            </td>
+            <td>
+              <input
+                v-model="addPrice"
+                type="text"
+                placeholder="Purchase Price"
+                required
+              />
+            </td>
+            <td>
+              <input
+                v-model="addTotal"
+                type="text"
+                placeholder="Total Price"
+                required
+              />
+            </td>
+            <!-- <td>TO BE ADDED</td> -->
+            <td colspan="2">
+              <button
+                class="btn btn-outline-primary btn-sm"
+                @click="addToHoldings"
+              >
+                Add Holding
+              </button>
+            </td>
+          </tr>
+        </tbody>
       </table>
-      <div>
-        <h3>News</h3>
-        <div class="articles">
-          <news-article></news-article>
-          <news-article></news-article>
-          <news-article></news-article>
-        </div>
+    </div>
+
+    <div>
+      <h3>News</h3>
+      <div class="articles">
+        <news-article></news-article>
+        <news-article></news-article>
+        <news-article></news-article>
       </div>
     </div>
   </div>
 
   <div :class="updating ? 'update-popup' : 'hidden'">
-    <h1>Update: {{ updatingTicker }}</h1>
-    <form action="#" @submit.prevent="completeUpdate(this.updatingIndex)">
-      <label>
+    <h1 class="text-center">Update: {{ updatingTicker }}</h1>
+    <form
+      class="text-center"
+      action="#"
+      @submit.prevent="completeUpdate(this.updatingIndex)"
+    >
+      <label class="form-label mb-1">
         Units:
-        <input type="text" required v-model="this.updatingUnits" />
+        <input
+          class="form-control w-100 mb-2"
+          type="text"
+          required
+          v-model="this.updatingUnits"
+        />
       </label>
       <br />
-      <label>
+      <label class="form-label mb-1">
         Purchase Price:
-        <input type="number" required v-model="this.updatingPrice" />
+        <input
+          class="form-control w-100 mb-2"
+          type="number"
+          required
+          v-model="this.updatingPrice"
+        />
       </label>
       <br />
-      <label>
+      <label class="form-label mb-1">
         Total Value:
-        <input type="number" required v-model="this.updatingTotal" />
+        <input
+          class="form-control w-100 mb-2"
+          type="number"
+          required
+          v-model="this.updatingTotal"
+        />
       </label>
       <br />
-      <button type="submit">Update!</button>
+      <button class="btn btn-outline-primary" type="submit">Update!</button>
+      <button class="btn btn-outline-secondary" @click="exitUpdate">
+        Back
+      </button>
     </form>
-    <button @click="exitUpdate">Back</button>
   </div>
 </template>
 
@@ -143,6 +178,7 @@ export default {
       updatingTotal: "",
       updatingIndex: "",
       updating: false,
+      newsArticles: [],
     };
   },
   async mounted() {
@@ -154,6 +190,9 @@ export default {
     this.lastName = res.user.lastName;
     this.email = res.user.email;
     this.watchlists = res.user.watchlists;
+
+    // const response = await api.requestNews();
+    // this.newsArticles = response;
   },
   methods: {
     logout() {
@@ -168,7 +207,7 @@ export default {
     },
     async addToHoldings() {
       const holding = {
-        ticker: this.addStock,
+        ticker: this.addStock.toUpperCase(),
         units: this.addUnits,
         purchasePrice: this.addPrice,
         totalPrice: this.addTotal,
@@ -237,7 +276,7 @@ span {
   width: 300px;
 }
 table {
-  margin: 200px auto;
+  margin: 50px auto;
 }
 .update-popup {
   margin: auto;
@@ -246,11 +285,12 @@ table {
   right: 0;
   left: 0;
   top: 50px;
-  width: 400px;
-  height: 500px;
+  width: 350px;
+  height: 400px;
   border: 1px solid black;
   border-radius: 15px;
   background-color: white;
+  box-shadow: 0px 5px 33px -1px #000000;
 }
 .hidden {
   display: none;
@@ -259,5 +299,8 @@ table {
 .blurred {
   filter: blur(15px);
   pointer-events: none;
+}
+h2 {
+  padding: 20px;
 }
 </style>

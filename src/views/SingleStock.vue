@@ -1,11 +1,16 @@
 <template>
-  <div>This is a single stock</div>
-  <p>The selected stock is {{ stockCode }}</p>
-  <p>{{ $route.params.stockCode }}</p>
-  <div class="chart">
-    <line-chart v-if="loaded" :chartValues="chartValues" />
+  <div class="container">
+    <div class="mt-5">
+      <h3>Ticker: {{ $route.params.stockCode }}</h3>
+      <h3>Current Price: $93.98</h3>
+      <button class="btn btn-outline-secondary" @click="returnToHoldings">
+        Return to Holdings
+      </button>
+    </div>
+    <div class="chart">
+      <line-chart v-if="loaded" :chartValues="chartValues" />
+    </div>
   </div>
-  <button @click="returnToHoldings">Back</button>
 </template>
 
 <script>
