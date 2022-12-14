@@ -16,6 +16,7 @@ import axios from "axios";
 // when I deploy this will have to change to the deployed address ?
 const baseURL = "http://localhost:1337/users/";
 const loginURL = "http://localhost:1337/login/";
+const watchListURL = "http://localhost:1337/users/watchlist/";
 
 const handleError =
   (fn) =>
@@ -56,11 +57,41 @@ export const api = {
     return res.data;
   }),
 
+  getHolding: handleError(async (index) => {
+    const res = await axios.get(watchListURL, {
+      headers: { token: localStorage.getItem("token"), index: index },
+    });
+    return res.data;
+  }),
+
+  updateHolding: handleError(async (index, holding, holdings) => {
+    const res = await axios.put(watchListURL, {
+      headers: {
+        token: localStorage.getItem("token"),
+        index: index,
+        holding: holding,
+        holdings: holdings,
+      },
+    });
+    return res.data;
+  }),
+
   addHolding: handleError(async (payload, existingWatchlist) => {
-    const res = await axios.put(baseURL, {
+    const res = await axios.post(watchListURL, {
       headers: { token: localStorage.getItem("token") },
       stock: payload,
       currentWatchlists: existingWatchlist,
+    });
+    return res.data;
+  }),
+
+  removeHolding: handleError(async (index, existingWatchlist) => {
+    const res = await axios.delete(watchListURL, {
+      headers: {
+        token: localStorage.getItem("token"),
+        index: index,
+        currentWatchlists: JSON.stringify(existingWatchlist),
+      },
     });
     return res.data;
   }),
