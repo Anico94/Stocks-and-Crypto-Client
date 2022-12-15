@@ -210,12 +210,14 @@ export default {
     this.watchlists = res.user.watchlists;
 
     // this is requesting news articles form the api successfully
+
     const APIKEY = `${process.env.VUE_APP_MARKETAUX}`;
     const stockCode = "AMZN,GOOG,TSLA";
     const URL = `https://api.marketaux.com/v1/news/all?symbols=${stockCode}&filter_entities=true&language=en&api_token=${APIKEY}`;
     const response = await axios.get(URL);
     this.newsArticles = response.data.data;
 
+    // CODE BELOW TO REQUEST NEWS FROM BACK END FEATURE TO COME
     // const response = await api.requestNews();
     // this.newsArticles = response;
   },
