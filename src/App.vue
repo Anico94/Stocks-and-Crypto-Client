@@ -64,11 +64,21 @@
             <li v-if="userPresent">
               <form class="d-flex" role="search">
                 <input
+                  list="stock"
                   class="form-control me-2"
                   type="search"
                   placeholder="Search"
                   aria-label="Search"
                 />
+                <datalist id="stock">
+                  <option
+                    v-for="stock in this.stocknames"
+                    :key="stock"
+                    :value="stock.ticker"
+                  >
+                    {{ stock.ticker }} - {{ stock.name }}
+                  </option>
+                </datalist>
                 <button class="btn btn-secondary btn-sm" type="submit">
                   Search
                 </button>
@@ -89,6 +99,18 @@ export default {
   data() {
     return {
       userPresent: false,
+      stocknames: [
+        { name: "Addus HomeCare Corporation", ticker: "ADUS" },
+        { name: "ADDvantage Technologies Group, Inc.", ticker: "AEY" },
+        { name: "Adecoagro S.A.", ticker: "AGRO" },
+        { name: "Adesto Technologies Corporation", ticker: "IOTS" },
+        { name: "Adial Pharmaceuticals, Inc", ticker: "ADIL" },
+        { name: "Adial Pharmaceuticals, Inc", ticker: "ADILW" },
+        { name: "Adient plc", ticker: "ADNT" },
+        { name: "ADMA Biologics Inc", ticker: "ADMA" },
+        { name: "Adobe Inc.", ticker: "ADBE" },
+        { name: "ADOMANI, Inc.", ticker: "ADOM" },
+      ],
     };
   },
   mounted() {

@@ -298,7 +298,8 @@ table {
   border: 1px solid black;
   border-radius: 15px;
   background-color: white;
-  box-shadow: 0px 5px 33px -1px #000000;
+  -webkit-box-shadow: 0px 0px 15px 5px #a6a6a6;
+  box-shadow: 0px 0px 15px 5px #a6a6a6;
 }
 .hidden {
   display: none;

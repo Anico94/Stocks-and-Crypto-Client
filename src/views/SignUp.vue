@@ -136,8 +136,8 @@ button {
   border: 1px solid black;
   padding: 20px;
   border-radius: 20px;
-  -webkit-box-shadow: 0px 5px 33px -1px #000000;
-  box-shadow: 0px 5px 33px -1px #000000;
+  -webkit-box-shadow: 0px 0px 15px 5px #a6a6a6;
+  box-shadow: 0px 0px 15px 5px #a6a6a6;
 }
 p {
   text-align: center;
