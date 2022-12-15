@@ -14,7 +14,7 @@
           <tr>
             <th>Stock</th>
             <th>Units</th>
-            <th>Purchase Price</th>
+            <th>Price/Stock</th>
             <th>Total Price</th>
             <!-- <th>Current Price</th> -->
             <th colspan="2">Add/Remove/Update</th>
@@ -55,33 +55,47 @@
             <td>
               <input
                 v-model="addStock"
-                type="text"
+                list="stock"
+                class="form-control me-2"
+                type="search"
                 placeholder="Search"
-                required
+                aria-label="Search"
               />
+              <datalist id="stock">
+                <option
+                  v-for="stock in this.stocknames"
+                  :key="stock"
+                  :value="stock.ticker"
+                >
+                  {{ stock.ticker }} - {{ stock.name }}
+                </option>
+              </datalist>
             </td>
             <td>
               <input
                 v-model="addUnits"
-                type="text"
+                type="number"
                 placeholder="Units"
-                required
+                class="form-control me-2"
+                aria-label="Units"
               />
             </td>
             <td>
               <input
                 v-model="addPrice"
-                type="text"
-                placeholder="Purchase Price"
-                required
+                type="number"
+                placeholder="Price/Stock"
+                class="form-control me-2"
+                aria-label="Price/Stock"
               />
             </td>
             <td>
               <input
                 v-model="addTotal"
-                type="text"
+                type="number"
                 placeholder="Total Price"
-                required
+                class="form-control me-2"
+                aria-label="Total Price"
               />
             </td>
             <!-- <td>TO BE ADDED</td> -->
@@ -96,6 +110,7 @@
           </tr>
         </tbody>
       </table>
+      <p class="error-message text-center">{{ message }}</p>
     </div>
 
     <div class="container news-section">
@@ -157,6 +172,7 @@
 import NewsArticle from "@/components/NewsArticle.vue";
 import { api } from "../helper/helpers";
 import axios from "axios";
+import { stockArray } from "../helper/USStocks";
 
 export default {
   components: { NewsArticle },
@@ -179,6 +195,8 @@ export default {
       updatingIndex: "",
       updating: false,
       newsArticles: [],
+      stocknames: stockArray(),
+      message: "",
     };
   },
   async mounted() {
@@ -192,12 +210,11 @@ export default {
     this.watchlists = res.user.watchlists;
 
     // this is requesting news articles form the api successfully
-    // const APIKEY = `${process.env.VUE_APP_MARKETAUX}`;
-    // const stockCode = "AMZN,GOOG,TSLA";
-    // const URL = `https://api.marketaux.com/v1/news/all?symbols=${stockCode}&filter_entities=true&language=en&api_token=${APIKEY}`;
-    // const response = await axios.get(URL);
-    // this.newsArticles = response.data.data;
-    // console.log(response.data.data);
+    const APIKEY = `${process.env.VUE_APP_MARKETAUX}`;
+    const stockCode = "AMZN,GOOG,TSLA";
+    const URL = `https://api.marketaux.com/v1/news/all?symbols=${stockCode}&filter_entities=true&language=en&api_token=${APIKEY}`;
+    const response = await axios.get(URL);
+    this.newsArticles = response.data.data;
 
     // const response = await api.requestNews();
     // this.newsArticles = response;
@@ -214,6 +231,16 @@ export default {
       console.log(res.data["Weekly Adjusted Time Series"]);
     },
     async addToHoldings() {
+      this.message = "";
+      if (
+        this.addStock === "" ||
+        this.addUnits === "" ||
+        this.addPrice === "" ||
+        this.addTotal === ""
+      ) {
+        this.message = "Please fill out all fields to add";
+        return;
+      }
       const holding = {
         ticker: this.addStock.toUpperCase(),
         units: this.addUnits,
@@ -228,10 +255,12 @@ export default {
       this.addTotal = "";
     },
     async remove(index) {
+      this.message = "";
       const res = await api.removeHolding(index, this.watchlists);
       this.watchlists = res.watchlists;
     },
     async startUpdate(index) {
+      this.message = "";
       this.updating = true;
       const res = await api.getHolding(index);
       this.updatingTicker = res.user.watchlists.ticker;
@@ -259,6 +288,7 @@ export default {
     exitUpdate() {
       this.updating = false;
     },
+
     //ONLY ALLOWED 5 API REQUESTS A MINUTE
     // async currentPrice(stockCode) {
     //   const STOCKAPI = `${process.env.VUE_APP_ALPHAVANTAGE}`;
@@ -266,6 +296,14 @@ export default {
     //   const res = await axios.get(URL);
     //   console.log(res);
     // },
+  },
+  watch: {
+    addUnits() {
+      this.addTotal = Number(this.addUnits) * Number(this.addPrice);
+    },
+    addPrice() {
+      this.addTotal = Number(this.addUnits) * Number(this.addPrice);
+    },
   },
 };
 </script>
@@ -284,7 +322,7 @@ span {
   width: 300px;
 }
 table {
-  margin: 50px auto;
+  margin: 20px auto;
 }
 .update-popup {
   margin: auto;
@@ -310,7 +348,7 @@ table {
   pointer-events: none;
 }
 h2 {
-  padding: 10px;
+  padding: 25px 10px 10px 10px;
 }
 
 .news-section {
@@ -319,5 +357,8 @@ h2 {
   padding: 20px;
   border-radius: 15px;
   margin-bottom: 15px;
+}
+.error-message {
+  color: red;
 }
 </style>

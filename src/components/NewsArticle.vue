@@ -3,13 +3,12 @@
     <div class="image-container">
       <img :src="article['image_url']" alt="Article Image" />
     </div>
-    <h3>{{ article.title }}</h3>
+    <h4>{{ article.title }}</h4>
     <p>
-      This is the snippet of the article that gives a brief description of the
-      article
+      {{ article.snippet }}
     </p>
-    <p>{{ article.entities["0"].symbol }}</p>
-    <a :href="article.url" target="blank">See full story</a>
+    <p>Related Stocks: {{ article.entities["0"].symbol }}</p>
+    <a :href="article.url" target="blank">Link to full story</a>
   </div>
 </template>
 
@@ -18,11 +17,6 @@ export default {
   props: {
     article: Object,
   },
-  // watch:{
-  //   article: function(){
-
-  //   }
-  // }
 };
 </script>
 
@@ -41,5 +35,11 @@ img {
 }
 .image-container {
   text-align: center;
+}
+h4 {
+  margin-top: 20px;
+}
+p {
+  margin-top: 10px;
 }
 </style>

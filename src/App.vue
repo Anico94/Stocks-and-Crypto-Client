@@ -62,12 +62,17 @@
               </ul>
             </li> -->
             <li v-if="userPresent">
-              <form class="d-flex" role="search">
+              <form
+                @submit.prevent="searchForStock"
+                class="d-flex"
+                role="search"
+              >
                 <input
+                  v-model="searchRequest"
                   list="stock"
-                  class="form-control me-2"
+                  class="form-control w-150 me-2"
                   type="search"
-                  placeholder="Search"
+                  placeholder="Search for Stock"
                   aria-label="Search"
                 />
                 <datalist id="stock">
@@ -94,23 +99,14 @@
 </template>
 
 <script>
+import { stockArray } from "./helper/USStocks";
 export default {
   name: "app",
   data() {
     return {
       userPresent: false,
-      stocknames: [
-        { name: "Addus HomeCare Corporation", ticker: "ADUS" },
-        { name: "ADDvantage Technologies Group, Inc.", ticker: "AEY" },
-        { name: "Adecoagro S.A.", ticker: "AGRO" },
-        { name: "Adesto Technologies Corporation", ticker: "IOTS" },
-        { name: "Adial Pharmaceuticals, Inc", ticker: "ADIL" },
-        { name: "Adial Pharmaceuticals, Inc", ticker: "ADILW" },
-        { name: "Adient plc", ticker: "ADNT" },
-        { name: "ADMA Biologics Inc", ticker: "ADMA" },
-        { name: "Adobe Inc.", ticker: "ADBE" },
-        { name: "ADOMANI, Inc.", ticker: "ADOM" },
-      ],
+      stocknames: stockArray(),
+      searchRequest: "",
     };
   },
   mounted() {
@@ -125,6 +121,12 @@ export default {
     },
     setUser(value) {
       this.userPresent = value;
+    },
+    searchForStock() {
+      if (this.searchRequest !== "") {
+        this.$router.push(`/singlestock/${this.searchRequest}`);
+        this.searchRequest = "";
+      }
     },
   },
 };
@@ -160,5 +162,12 @@ nav a.router-link-exact-active {
 
 img {
   width: 50px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+}
+
+.div-width {
+  width: 50px;
+  font-weight: bold;
 }
 </style>
