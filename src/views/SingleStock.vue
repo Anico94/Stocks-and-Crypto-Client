@@ -41,7 +41,7 @@ export default {
     }
 
     this.chartValues = {
-      datasets: [{ data: array }],
+      datasets: [{ label: this.$route.params.stockCode, data: array }],
     };
     console.log(array);
 

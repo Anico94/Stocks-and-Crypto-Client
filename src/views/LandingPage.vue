@@ -49,7 +49,7 @@
             </td>
           </tr>
           <tr v-if="this.watchlists.length === 0">
-            <td colspan="6">Currently no holding fill out above to add</td>
+            <td colspan="6">Currently no holding fill out below to add</td>
           </tr>
           <tr>
             <td>
@@ -98,12 +98,12 @@
       </table>
     </div>
 
-    <div>
+    <div class="container news-section">
       <h3>News</h3>
       <div class="articles">
-        <news-article></news-article>
-        <news-article></news-article>
-        <news-article></news-article>
+        <news-article :article="newsArticles[0]"></news-article>
+        <news-article :article="newsArticles[1]"></news-article>
+        <news-article :article="newsArticles[2]"></news-article>
       </div>
     </div>
   </div>
@@ -190,6 +190,14 @@ export default {
     this.lastName = res.user.lastName;
     this.email = res.user.email;
     this.watchlists = res.user.watchlists;
+
+    // this is requesting news articles form the api successfully
+    // const APIKEY = `${process.env.VUE_APP_MARKETAUX}`;
+    // const stockCode = "AMZN,GOOG,TSLA";
+    // const URL = `https://api.marketaux.com/v1/news/all?symbols=${stockCode}&filter_entities=true&language=en&api_token=${APIKEY}`;
+    // const response = await axios.get(URL);
+    // this.newsArticles = response.data.data;
+    // console.log(response.data.data);
 
     // const response = await api.requestNews();
     // this.newsArticles = response;
@@ -301,6 +309,14 @@ table {
   pointer-events: none;
 }
 h2 {
+  padding: 10px;
+}
+
+.news-section {
+  border: 1px solid lightgray;
+  background-color: lightgray;
   padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 15px;
 }
 </style>

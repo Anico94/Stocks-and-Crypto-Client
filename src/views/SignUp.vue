@@ -99,6 +99,7 @@ export default {
         this.error = resLogin.error;
       } else {
         localStorage.setItem("token", resLogin.token);
+        this.$emit("userLoggedIn", true);
         this.error = "";
         this.$router.push(`/landing`);
       }

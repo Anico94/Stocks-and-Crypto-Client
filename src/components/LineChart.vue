@@ -38,6 +38,27 @@ export default {
     return {
       chartOptions: {
         responsive: true,
+        elements: {
+          point: {
+            pointStyle: "circle",
+            radius: 2,
+            hitRadius: 4,
+          },
+          line: {
+            backgroundColor: "#2E1DF0",
+            borderColor: "#2E1DF0",
+          },
+        },
+        scales: {
+          y: {
+            ticks: {
+              // Include a dollar sign in the ticks
+              callback: function (value) {
+                return "$" + value;
+              },
+            },
+          },
+        },
       },
     };
   },

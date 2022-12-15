@@ -2,7 +2,9 @@
   <div id="app">
     <nav class="navbar navbar-expand-lg bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#"
+          ><img src="./assets/logo.png" alt="Article Image"
+        /></a>
         <button
           class="navbar-toggler"
           type="button"
@@ -21,22 +23,22 @@
                 ><router-link to="/">Home</router-link></a
               >
             </li> -->
-            <li class="nav-item">
+            <li v-if="userPresent" class="nav-item">
               <a class="nav-link active" aria-current="page" href="#"
                 ><router-link to="/landing">Holdings</router-link></a
               >
             </li>
-            <li class="nav-item">
+            <li v-if="!userPresent" class="nav-item">
               <a class="nav-link" href="#"
                 ><router-link to="/login">Login</router-link></a
               >
             </li>
-            <li class="nav-item">
+            <li v-if="!userPresent" class="nav-item">
               <a class="nav-link" href="#"
                 ><router-link to="/signup">Sign Up</router-link></a
               >
             </li>
-            <li class="nav-item">
+            <li v-if="userPresent" class="nav-item">
               <a @click="logout" class="nav-link" href="#"
                 ><router-link to="/login">Log out</router-link></a
               >
@@ -59,7 +61,7 @@
                 </li>
               </ul>
             </li> -->
-            <li>
+            <li v-if="userPresent">
               <form class="d-flex" role="search">
                 <input
                   class="form-control me-2"
@@ -77,7 +79,7 @@
       </div>
     </nav>
 
-    <router-view />
+    <router-view @user-logged-in="setUser" />
   </div>
 </template>
 
@@ -89,10 +91,18 @@ export default {
       userPresent: false,
     };
   },
+  mounted() {
+    if (localStorage.getItem("token")) {
+      this.userPresent = true;
+    }
+  },
   methods: {
     logout() {
       localStorage.clear();
-      this.$root.$emit("userPresent", false);
+      this.userPresent = false;
+    },
+    setUser(value) {
+      this.userPresent = value;
     },
   },
 };
@@ -124,5 +134,9 @@ nav a.router-link-exact-active {
 .logo {
   width: 30px;
   padding-right: 100px;
+}
+
+img {
+  width: 50px;
 }
 </style>

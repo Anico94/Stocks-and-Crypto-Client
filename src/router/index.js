@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import LoginPage from "../views/LoginPage.vue";
 import SignUp from "../views/SignUp.vue";
-import HomePage from "../views/HomePage.vue";
+// import HomePage from "../views/HomePage.vue";
 import LandingPage from "../views/LandingPage.vue";
 import SingleStock from "../views/SingleStock";
 
@@ -10,7 +10,7 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: HomePage,
+    component: LoginPage,
   },
   {
     path: "/login",

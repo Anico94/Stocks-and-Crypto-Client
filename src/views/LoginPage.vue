@@ -51,6 +51,7 @@ export default {
         this.error = res.error;
       } else {
         localStorage.setItem("token", res.token);
+        this.$emit("userLoggedIn", true);
         this.error = "";
         this.$router.push(`/landing`);
       }
