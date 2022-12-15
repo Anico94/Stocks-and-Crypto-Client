@@ -14,9 +14,14 @@ import axios from "axios";
 // const vueInstance = app.mount("#app");
 
 // when I deploy this will have to change to the deployed address ?
-const baseURL = "http://localhost:1337/users/";
-const loginURL = "http://localhost:1337/login/";
-const watchListURL = "http://localhost:1337/users/watchlist/";
+// const baseURL = "http://localhost:1337/users/";
+// const loginURL = "http://localhost:1337/login/";
+// const watchListURL = "http://localhost:1337/users/watchlist/";
+
+const baseURL = "https://trackerstocks.herokuapp.com/users/";
+const loginURL = "https://trackerstocks.herokuapp.com/login/";
+const watchListURL = "https://trackerstocks.herokuapp.com/users/watchlist/";
+
 // const newsURL = "http://localhost:1337/request/";
 
 const handleError =
