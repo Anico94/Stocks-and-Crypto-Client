@@ -17,6 +17,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <h3 class="mb-0 me-5 text-secondary">Stock Holdings</h3>
           <ul class="navbar-nav">
             <!-- <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#"
@@ -93,7 +94,6 @@
         </div>
       </div>
     </nav>
-
     <router-view @user-logged-in="setUser" />
   </div>
 </template>
