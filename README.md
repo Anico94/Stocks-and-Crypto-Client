@@ -27,7 +27,7 @@ Please visit the [Stock Server Code](https://github.com/Anico94/Stocks-and-Crypt
 
 ## Deployment
 
-This application was deployed using netlify for the client and heroku for the server.
+This application was deployed using netlify for the client and heroku for the server. You can visit the site at this link [Live Site](https://trackstocks.netlify.app/)
 
 ## Challenges
 
